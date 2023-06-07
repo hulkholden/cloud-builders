@@ -30,6 +30,8 @@ steps:
   - '.'
 
 # Print for each version
+- name: 'gcr.io/$PROJECT_ID/bazel:latest'
+  args: ['version']
 - name: 'gcr.io/$PROJECT_ID/bazel:5.4.0'
   args: ['version']
 - name: 'gcr.io/$PROJECT_ID/bazel:6.2.1'

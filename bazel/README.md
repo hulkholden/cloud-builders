@@ -5,14 +5,14 @@ but it may not support the most recent features or versions of Bazel. We also do
 not provide historical pinned versions of bazel.
 
 The Bazel team provides a `bazel` image that supports multiple tagged versions
-at http://gcr.io/cloud-marketplace-containers/google/bazel.
+at https://gcr.io/bazel-public/bazel.
 
 To migrate to the Bazel team's official Bazel image, make the following changes
 to your `cloudbuild.yaml`:
 
 ```
 - name: 'gcr.io/cloud-builders/bazel'
-+ name: 'gcr.io/cloud-marketplace-containers/google/bazel'
++ name: 'gcr.io/bazel-public/bazel'
 + entrypoint: 'bazel'
 ```
 
@@ -20,7 +20,7 @@ to your `cloudbuild.yaml`:
 
 ```
 steps:
-- name: 'gcr.io/cloud-marketplace-containers/google/bazel'
+- name: 'gcr.io/bazel-public/bazel'
   entrypoint: 'bazel'
   args: ['build', '//java/com/company/service:server']
 ```

@@ -3,7 +3,7 @@
 
 steps:
 # Build all supported versions.
-# For now, keep pointing latest at 5.x as 6.x is backwards-incompatible (see #880).
+# Explicitly point latest at 5.x as 6.x is backwards-incompatible (see #880).
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'build'
@@ -45,6 +45,20 @@ steps:
   args: ['run', '--spawn_strategy=standalone', '//:checkargs', '--verbose_failures', '--', 'a', 'b', 'c']
   dir: 'examples'
 - name: 'gcr.io/$PROJECT_ID/bazel:latest'
+  entrypoint: '/bin/bash'
+  args: ['invocation_id_test.sh']
+# Run the example (it was built as bazel:target).
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['run', 'bazel:target']
+
+# Build the example with :6.2.1
+- name: 'gcr.io/$PROJECT_ID/bazel:6.2.1'
+  args: ['run', '--spawn_strategy=standalone', '//:target', '--verbose_failures']
+  dir: 'examples'
+- name: 'gcr.io/$PROJECT_ID/bazel:6.2.1'
+  args: ['run', '--spawn_strategy=standalone', '//:checkargs', '--verbose_failures', '--', 'a', 'b', 'c']
+  dir: 'examples'
+- name: 'gcr.io/$PROJECT_ID/bazel:6.2.1'
   entrypoint: '/bin/bash'
   args: ['invocation_id_test.sh']
 # Run the example (it was built as bazel:target).
